@@ -1,0 +1,23 @@
+{
+  "group-message-text": "Like for DI",
+  "group-message-text2": "Make sure you like for DI. This message works too",
+  "dm-message-text": "Like this for DI please",
+  "bot-name": "",
+  "annoying-level": 1,
+  "sharepoint-cookie": "",
+  "groupme-api-key": "",
+  "group-id": "",
+  "lookup-table-location": "./lookup",
+  "simulate": "1",
+  "sharepoint-roster": "Cadet Roster",
+  "sharepoint-di": "DI Log v2",
+  "sharepoint-di-metadata": "SP.Data.DI_x0020_Log_x0020_v2ListItem",
+  "sharepoint-di-email": "Title",
+  "sharepoint-di-unit": "Unit",
+  "sharepoint-di-signat": "SignedAt",
+  "sharepoint-di-signby": "SignedBy",
+  "sharepoint-di-name": "Name",
+  "sharepoint-roster-email": "OData__x0069_b97",
+  "sharepoint-roster-unit": "pysw",
+  "sharepoint-roster-name": "Title"
+}
