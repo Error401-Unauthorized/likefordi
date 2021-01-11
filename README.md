@@ -4,16 +4,17 @@ This program is a like for DI bot to be used in groupme and uses the sharepoint 
 
 ## How to use
 
-There are four blank fields in the config.json:
+There are four blank fields in the [config.json](./config.json):
 
 1. To start, chose a name for your bot and enter it as the value for "bot-name".  This value is who FalconNet thinks signed someone's DI.  I used my name so the FalconNet admins wouldn't flag it as suspicious.
 2. Go to https://dev.groupme.com/ and create an application for your bot.  Copy your access token into the value for "groupme-api-key".
-3. Make a GET request to 'https://api.groupme.com/v3/groups?token="Your access token goes here"'.  In the returned info, search for you squads group.  Copy the returned group-id into the "group-id" field.
-4. In the "lookup-table-location" field, notice how it references a file called lookup.  You will need to make a file with everyone's groupme id and sharepoint id separated by a colon.  For example: 38879355:4014.  Each pairing should have its own line.
-   1. You can get all the groupme ids by sending a GET request to 'https://api.groupme.com/v3/groups/"Your group-id here"?token="Your access token here"'
-   2. To get all the sharepoint ids, you can ask everyone in squad to send you theirs, or you can send an api request to sharepoint.  The api request should be to 'https://usafa0.sharepoint.com/sites/LoFiDI/_api/web/lists/GetByTitle('Cadet Roster')/Items?$filter=(pysw eq 'CS"Your squad number here"')' but to make it easy paste that in your browser and sort through the returned xml yourself.  The ID should be in the <d:Id m:type="Edm.Int32">\</d:Id\> tag.
+3. Make a GET request to 'https://api.groupme.com/v3/groups?token=<Your access token goes here>'.  In the returned info, search for your squads group id.  Copy the returned group-id into the "group-id" field.  I recommend the Postman application to help with api calls.
+4. In the "lookup-table-location" field, notice how it references a file called lookup.  You will need to make your own file with everyone's groupme id and sharepoint id separated by a colon.  For example: 38879355:4014.  Each pairing should have its own line.
+   1. You can get all the groupme ids for your squad by sending a GET request to 'https://api.groupme.com/v3/groups/<Your group-id here>?token=<Your access token here>'
+   2. To get all the sharepoint ids, you can ask everyone in squad to send you theirs, or you can send an api request to sharepoint.  The api request should be to 'https://usafa0.sharepoint.com/sites/LoFiDI/_api/web/lists/GetByTitle('Cadet Roster')/Items?$filter=(pysw eq 'CS<Your squad number here>')' but to make it easy paste that in your browser and sort through the returned xml yourself or with a online xml beautifier.  The ID should be in the <d:Id m:type="Edm.Int32"> tag.
+   3. If you can't find everyone using the last api request, you can also search using their name: https://usafa0.sharepoint.com/sites/LoFiDI/_api/web/lists/GetByTitle('Cadet%20Roster')/Items?$filter=substringof(%27<Name goes here>%27,Title).  Again, the ID should be in the <d:Id m:type="Edm.Int32">\</d:Id\> tag.
 5. Finally, for the "sharepoint-cookie",  use your browser to go to "https://usafa0.sharepoint.com/sites/LoFiDI/Lists/Cadet%20Roster/NoItems.aspx".  Go to Inspect Element, the Network tab, and then refresh the page.  Click on the first item that shows up.  At the bottom of the Headers tab, there should be a field called cookie.  Copy the whole value into the "sharepoint-cookie" field.  Since cookies expire regularly, you will have to do this about one a week.
-6. To make the program live, update the field "simulate" from "1" to "0".
+6. A safeguard is enabled by default.  To make the program run, update the field "simulate" from 1 to 0.
 
 The program should now work.  The default behavior of the program is to only send one group message.  The field "annoying-level" will change that
 
