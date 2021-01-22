@@ -6,7 +6,7 @@ import sys
 import os
 
 # Globals
-JsonFileLocation = "./myconfig.json"
+JsonFileLocation = "./config.json"
 JsonData = ''
 RunningData = {}
 Token = ''
@@ -246,7 +246,7 @@ def update_DI_times(ids):
 			if response.status_code != 204:
 				name = IMap[id]["name"]
 				print("Warning: Unable to update {} roster time, id {} DI time. Code: {}, Response: {}".format(name, id, response.status_code, response.text))
-				break
+				continue
 		completed.append(id)
 	return completed
 
@@ -279,7 +279,7 @@ def sign_di_roster(ids):
 			if response.status_code != 201:
 				name = IMap[id]["name"]
 				print("Warning: Unable to sign di roster for {}, id {} DI time. Code: {}, Response: {}".format(name, id, response.status_code, response.text))
-				break
+				continue
 		completed.append(id)
 	return completed
 
@@ -335,7 +335,7 @@ if __name__ == "__main__":
 		completed = intersection_array(completedRoster, completedTimes)
 		for id in completed:
 			print("Log: Bot has signed for {}".format(IMap[id]["name"]))
-		RunningData["likes"].extend(newLikes)
+			RunningData["likes"].append(IMap[id]["gid"])
 		# If 9 pm send another message
 		if current >= secondMessageTime and RunningData["secondary-messages"][1] == 0 and 2 <= JsonData["annoying-level"]:
 			print("Log: Sending group text 2")
@@ -348,7 +348,7 @@ if __name__ == "__main__":
 				if id not in RunningData["likes"] and IdTable[id] != 'null':
 					missing.append(id)
 			if len(missing) == 0:
-				break
+				continue
 			for id in missing:
 				send_direct_messages(id, JsonData["dm-message-text"])
 		save_running_data()
